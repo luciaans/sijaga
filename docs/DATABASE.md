@@ -33,3 +33,4 @@ pelanggaran.student_photo_url ─── path objek pada Storage privat student-p
 2. `002_rls.sql`: fungsi keamanan, trigger reporter/audit, RLS, bucket dan policy Storage.
 3. `003_dashboard.sql`: RPC dashboard, manajemen akun, filter rekap, serta ringkasan riwayat.
 4. `004_educator_type.sql`: pilihan Ustadz/Ustadzah; akun pelapor lama ditetapkan sebagai Ustadz.
+5. `005_student_entry_flow.sql`: pencarian santri yang pernah dilaporkan dan rekap jumlah laporan per nama untuk formulir serta daftar pelanggaran.

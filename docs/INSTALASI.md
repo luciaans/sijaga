@@ -9,7 +9,7 @@
    - **Enable automatic RLS** boleh tetap mati karena migrasi SIJAGA mengaktifkan RLS secara eksplisit pada semua tabel.
 2. Buka **SQL Editor**, tempel isi `supabase/setup.sql`, lalu klik **Run** sekali. Alternatifnya, jalankan semua `supabase/migrations/*.sql` secara terpisah sesuai urutan. Jangan jalankan bundle dan migrasi satu per satu sekaligus.
 3. Migrasi membuat tabel dan index, policy RLS, bucket privat `student-photos`, trigger, serta fungsi statistik.
-   Untuk project yang sebelumnya sudah memakai setup lama, jalankan `supabase/migrations/004_educator_type.sql` agar pilihan akun Ustadz/Ustadzah tersedia.
+   Untuk project yang sudah aktif, jalankan migrasi baru yang belum diterapkan secara berurutan. Misalnya, setup lama memerlukan `004_educator_type.sql` dan `005_student_entry_flow.sql`.
 4. Pada Authentication, pastikan penyedia Email aktif. Skrip pembuatan akun menandai alamat internal sebagai terverifikasi, sehingga pengguna tidak perlu menerima email.
 
 ## 2. Isi environment

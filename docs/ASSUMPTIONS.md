@@ -8,5 +8,6 @@
 - Login memiliki penundaan 700 ms. Perlindungan brute force tambahan bergantung pada rate limit Auth Supabase dan konfigurasi deployment; tidak ada penyimpanan rate limit terdistribusi lokal.
 - Foto sumber dibatasi 2 MB di client, dikompres ke JPEG maksimal sisi 1.280 piksel, diverifikasi ulang MIME/ekstensi/signature di server, lalu disimpan di bucket privat.
 - Nama santri dinormalisasi lowercase dan spasi ganda dirapikan. Perbedaan ejaan yang bukan sekadar kapital/spasi tetap menjadi identitas riwayat berbeda.
+- Identitas santri pada alur pencatatan saat ini dikelompokkan berdasarkan `student_name_normalized` yang sudah ada di laporan; santri baru dapat dipilih dari daftar riwayat atau dimasukkan sebagai nama baru. Tidak dibuat tabel master santri terpisah agar laporan lama tetap terhubung tanpa migrasi data manual.
 - Rekap memuat semua baris sesuai filter. Browser membuat PDF menggunakan jsPDF; ukuran data sangat besar akan memakai memori browser sesuai jumlah baris.
 - Pengujian database langsung memerlukan project Supabase, minimal dua akun ustaz, dan environment yang disiapkan pengguna. Pemeriksaan yang belum dapat dijalankan dicatat di `PENGUJIAN.md`.

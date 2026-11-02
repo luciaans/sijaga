@@ -9,7 +9,7 @@ import { violationSchema, type ViolationInput } from "@/lib/validations/violatio
 import { photoMetadataSchema } from "@/lib/validations/photo";
 import { PHOTO_BUCKET, PHOTO_MAX_BYTES, PHOTO_MIME_TYPES, USTAZ_CAN_DELETE_OWN_REPORT } from "@/lib/constants";
 
-export type ViolationActionResult = { success: true; id?: string } | { success: false; error: string };
+export type ViolationActionResult = { success: true; id?: string; studentReportCount?: number } | { success: false; error: string };
 
 const reportSubmissionSchema = violationSchema.extend({ photo: z.instanceof(File).optional() });
 
@@ -40,13 +40,15 @@ export async function createViolationAction(input: unknown): Promise<ViolationAc
   const { data, error } = await supabase.from("pelanggaran").insert({
     student_name: value.studentName, student_class: value.studentClass, category: value.category,
     description: value.description, incident_date: value.incidentDate, reporter_id: profile.id, student_photo_url: photoPath,
-  }).select("id").single();
+  }).select("id,student_name_normalized").single();
   if (error || !data) {
     if (photoPath) await supabase.storage.from(PHOTO_BUCKET).remove([photoPath]);
     return { success: false, error: "Laporan gagal disimpan. Periksa kembali data yang diisi." };
   }
+  const { data: summary } = await supabase.rpc("student_history_summary", { student_key: data.student_name_normalized });
+  const studentReportCount = typeof summary === "object" && summary !== null && "total" in summary ? Number(summary.total) : undefined;
   revalidatePath("/dashboard"); revalidatePath("/pelanggaran"); revalidatePath(`/santri/${encodeURIComponent(value.studentName)}`);
-  return { success: true, id: data.id };
+  return { success: true, id: data.id, studentReportCount };
 }
 
 export async function updateViolationAction(id: string, input: unknown): Promise<ViolationActionResult> {

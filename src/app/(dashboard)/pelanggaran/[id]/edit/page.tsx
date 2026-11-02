@@ -13,8 +13,6 @@ export default async function EditViolationPage({ params }: { params: Promise<{ 
   const supabase = await createClient();
   const { data } = await supabase.from("pelanggaran").select("*").eq("id", id).maybeSingle();
   if (!data || (profile.role !== "admin" && data.reporter_id !== profile.id)) notFound();
-  const { data: filterData } = await supabase.rpc("report_filter_options");
-  const suggestions = ((filterData ?? {}) as { students?: string[] }).students ?? [];
   const photoUrl = await createSignedPhotoUrl(data.student_photo_url);
-  return <div className="mx-auto max-w-4xl space-y-5"><Link href={`/pelanggaran/${id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-navy"><ChevronLeft size={17} />Kembali ke detail laporan</Link><div><h2 className="text-2xl font-bold text-navy">Edit laporan pelanggaran</h2><p className="mt-1 text-sm text-slate-500">Perubahan dicatat dalam log aktivitas sistem.</p></div><ViolationForm initial={data as Violation} suggestions={suggestions} initialPhotoUrl={photoUrl} /></div>;
+  return <div className="mx-auto max-w-4xl space-y-5"><Link href={`/pelanggaran/${id}`} className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-navy"><ChevronLeft size={17} />Kembali ke detail laporan</Link><div><h2 className="text-2xl font-bold text-navy">Edit laporan pelanggaran</h2><p className="mt-1 text-sm text-slate-500">Perubahan dicatat dalam log aktivitas sistem.</p></div><ViolationForm initial={data as Violation} initialPhotoUrl={photoUrl} /></div>;
 }
