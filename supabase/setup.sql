@@ -168,7 +168,8 @@ as $$
 $$;
 grant execute on function public.dashboard_stats() to authenticated;
 
-create or replace function public.ustaz_report_counts()
+drop function if exists public.ustaz_report_counts();
+create function public.ustaz_report_counts()
 returns table(profile_id uuid, full_name text, username text, is_active boolean, created_at timestamptz, report_count bigint)
 language sql stable security invoker set search_path = '' as $$
   select p.id, p.full_name, p.username, p.is_active, p.created_at, count(v.id)
