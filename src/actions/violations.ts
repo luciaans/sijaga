@@ -43,6 +43,7 @@ export async function createViolationAction(input: unknown): Promise<ViolationAc
   }).select("id,student_name_normalized").single();
   if (error || !data) {
     if (photoPath) await supabase.storage.from(PHOTO_BUCKET).remove([photoPath]);
+    if (error?.code === "42501") return { success: false, error: "Santri ini terdaftar pada akun lain. Pilih santri dari daftar akun Anda." };
     return { success: false, error: "Laporan gagal disimpan. Periksa kembali data yang diisi." };
   }
   const { data: summary } = await supabase.rpc("student_history_summary", { student_key: data.student_name_normalized });

@@ -34,3 +34,4 @@ pelanggaran.student_photo_url ─── path objek pada Storage privat student-p
 3. `003_dashboard.sql`: RPC dashboard, manajemen akun, filter rekap, serta ringkasan riwayat.
 4. `004_educator_type.sql`: pilihan Ustadz/Ustadzah; akun pelapor lama ditetapkan sebagai Ustadz.
 5. `005_student_entry_flow.sql`: pencarian santri yang pernah dilaporkan dan rekap jumlah laporan per nama untuk formulir serta daftar pelanggaran.
+6. `006_student_account_scope.sql`: daftar dan pencarian santri dibatasi ke laporan milik akun ustaz yang sedang masuk; ustaz tidak dapat menautkan laporan baru ke santri milik akun lain, sedangkan admin tetap dapat melihat semua santri.

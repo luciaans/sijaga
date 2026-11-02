@@ -23,45 +23,111 @@ export function RecapActions({ rows, filters, printedBy }: { rows: RecapRow[]; f
 
   function generate() {
     if (rows.length === 0) { toast.error("Tidak ada data untuk dicetak."); return null; }
-    const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
-    doc.setTextColor(11, 37, 69); doc.setFont("helvetica", "bold"); doc.setFontSize(15);
-    doc.text("PONDOK PESANTREN AL-JIHAD", 148.5, 17, { align: "center" });
-    doc.setFontSize(12); doc.text("REKAPITULASI DATA PELANGGARAN SANTRI", 148.5, 25, { align: "center" });
-    doc.setDrawColor(11, 37, 69); doc.setLineWidth(0.5); doc.line(14, 30, 283, 30);
-    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(50, 65, 82);
-    const period = filters.from || filters.to ? `${filters.from ? formatDate(filters.from) : "Awal"} – ${filters.to ? formatDate(filters.to) : "Sekarang"}` : "Semua tanggal";
-    doc.text(`Nama santri: ${filters.studentName || "Semua Santri"}`, 14, 39);
-    doc.text(`Kelas: ${filters.studentClass || "Semua kelas"}`, 14, 45);
-    doc.text(`Kategori: ${filters.category ? categoryLabel(filters.category) : "Semua kategori"}`, 150, 39);
-    doc.text(`Total pelanggaran: ${rows.length.toLocaleString("id-ID")}`, 150, 45);
-    doc.text(`Periode laporan: ${period}`, 14, 51);
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const pageWidth = 210;
+    const left = 14;
+    const right = pageWidth - 14;
+    const today = format(new Date(), "d MMMM yyyy", { locale: id });
+
+    doc.setTextColor(11, 37, 69);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text("PONDOK PESANTREN AL-JIHAD", pageWidth / 2, 18, { align: "center" });
+    doc.setFontSize(12);
+    doc.text("REKAPITULASI DATA PELANGGARAN SANTRI", pageWidth / 2, 26, { align: "center" });
+    doc.setDrawColor(11, 37, 69);
+    doc.setLineWidth(0.6);
+    doc.line(left, 31, right, 31);
+    doc.setLineWidth(0.2);
+    doc.line(left + 24, 33, right - 24, 33);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(8);
+    doc.setTextColor(105, 119, 135);
+    doc.text("DOKUMEN REKAPITULASI", pageWidth / 2, 38, { align: "center" });
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(50, 65, 82);
+    const period = filters.from || filters.to ? `${filters.from ? formatDate(filters.from) : "Awal periode"} - ${filters.to ? formatDate(filters.to) : "Sekarang"}` : "Semua tanggal";
     autoTable(doc, {
-      startY: 56,
-      head: [["No", "Tanggal kejadian", "Jenis pelanggaran", "Deskripsi", "Ustadz/Ustadzah pelapor"]],
-      body: rows.map((row, index) => [String(index + 1), formatDate(row.incident_date), categoryLabel(row.category), row.description, row.reporter?.full_name ?? "—"]),
-      theme: "grid", margin: { left: 14, right: 14, bottom: 22 },
-      styles: { font: "helvetica", fontSize: 8, cellPadding: 2.5, overflow: "linebreak", valign: "top", lineColor: [220, 229, 239], textColor: [38, 52, 70] },
-      headStyles: { fillColor: [11, 37, 69], textColor: [255, 255, 255], fontStyle: "bold" },
-      columnStyles: { 0: { cellWidth: 12, halign: "center" }, 1: { cellWidth: 32 }, 2: { cellWidth: 31 }, 3: { cellWidth: "auto" }, 4: { cellWidth: 42 } },
-      showHead: "everyPage", rowPageBreak: "avoid", pageBreak: "auto",
+      startY: 42,
+      margin: { left, right: 14 },
+      body: [
+        ["Nama santri", filters.studentName || "Semua santri", "Kategori", filters.category ? categoryLabel(filters.category) : "Semua kategori"],
+        ["Kelas", filters.studentClass || "Semua kelas", "Jumlah laporan", rows.length.toLocaleString("id-ID")],
+        ["Periode", period, "Dicetak oleh", printedBy],
+      ],
+      theme: "grid",
+      styles: { font: "helvetica", fontSize: 8, cellPadding: 2.3, overflow: "linebreak", lineColor: [215, 224, 234], textColor: [38, 52, 70], lineWidth: 0.15 },
+      columnStyles: { 0: { cellWidth: 27, fontStyle: "bold", fillColor: [243, 247, 251] }, 1: { cellWidth: 64 }, 2: { cellWidth: 27, fontStyle: "bold", fillColor: [243, 247, 251] }, 3: { cellWidth: "auto" } },
     });
-    const finalY = (doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? 60;
-    let y = finalY + 11;
-    if (y > 150) { doc.addPage(); y = 20; }
-    doc.setFont("helvetica", "bold"); doc.setFontSize(10); doc.setTextColor(11, 37, 69);
-    doc.text("Ringkasan evaluasi", 14, y);
-    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(50, 65, 82);
-    doc.text(`Ringan: ${totals.ringan}     Sedang: ${totals.sedang}     Berat: ${totals.berat}     Total: ${rows.length}`, 14, y + 6);
-    y += 20;
-    if (y > 170) { doc.addPage(); y = 25; }
-    doc.text(`Dicetak pada ${format(new Date(), "d MMMM yyyy", { locale: id })} oleh ${printedBy}`, 14, y);
-    doc.setDrawColor(145, 157, 170); doc.line(208, y + 18, 270, y + 18);
-    doc.text("Pengurus / Pihak Pondok", 239, y + 23, { align: "center" });
+    const reportStartY = ((doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? 62) + 6;
+
+    autoTable(doc, {
+      startY: reportStartY,
+      margin: { left, right: 14, bottom: 18 },
+      head: [["No.", "Tanggal", "Nama santri", "Kelas", "Kategori", "Uraian pelanggaran", "Pelapor"]],
+      body: rows.map((row, index) => [String(index + 1), formatDate(row.incident_date), row.student_name, row.student_class, categoryLabel(row.category), row.description, row.reporter?.full_name ?? "-" ]),
+      theme: "grid",
+      styles: { font: "helvetica", fontSize: 7.5, cellPadding: 2, overflow: "linebreak", valign: "top", lineColor: [215, 224, 234], textColor: [38, 52, 70], lineWidth: 0.15 },
+      headStyles: { fillColor: [11, 37, 69], textColor: [255, 255, 255], fontStyle: "bold", halign: "left" },
+      columnStyles: {
+        0: { cellWidth: 8, halign: "center" },
+        1: { cellWidth: 24 },
+        2: { cellWidth: 29 },
+        3: { cellWidth: 14 },
+        4: { cellWidth: 22 },
+        5: { cellWidth: "auto" },
+        6: { cellWidth: 27 },
+      },
+      showHead: "everyPage",
+      rowPageBreak: "auto",
+      pageBreak: "auto",
+    });
+
+    const finalY = (doc as jsPDF & { lastAutoTable?: { finalY: number } }).lastAutoTable?.finalY ?? 65;
+    let summaryY = finalY + 12;
+    if (summaryY + 105 > 270) {
+      doc.addPage();
+      summaryY = 22;
+    }
+
+    doc.setDrawColor(215, 224, 234);
+    doc.line(left, summaryY - 5, right, summaryY - 5);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(11, 37, 69);
+    doc.text("Ringkasan evaluasi", left, summaryY + 2);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(50, 65, 82);
+    doc.text(`Ringan: ${totals.ringan}     Sedang: ${totals.sedang}     Berat: ${totals.berat}     Total: ${rows.length}`, left, summaryY + 9);
+    doc.text(`Dicetak pada ${today} oleh ${printedBy}`, left, summaryY + 17);
+
+    const signatureY = summaryY + 29;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(50, 65, 82);
+    doc.text("Pengesahan", pageWidth / 2, signatureY, { align: "center" });
+    doc.setDrawColor(120, 135, 150);
+    doc.setLineWidth(0.35);
+    doc.line(27, signatureY + 31, 83, signatureY + 31);
+    doc.line(127, signatureY + 31, 183, signatureY + 31);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text("Wali Kelas", 55, signatureY + 37, { align: "center" });
+    doc.text("Ketua Yayasan", 155, signatureY + 37, { align: "center" });
+    doc.line(77, signatureY + 66, 133, signatureY + 66);
+    doc.text("Pengasuh Pondok", 105, signatureY + 72, { align: "center" });
+
     const totalPages = doc.getNumberOfPages();
     for (let page = 1; page <= totalPages; page += 1) {
-      doc.setPage(page); doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor(105, 119, 135);
-      doc.text(`Tanggal cetak: ${format(new Date(), "d MMMM yyyy", { locale: id })}`, 14, 202);
-      doc.text(`Halaman ${page} dari ${totalPages}`, 282, 202, { align: "right" });
+      doc.setPage(page);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.setTextColor(105, 119, 135);
+      doc.text(`Tanggal cetak: ${today}`, left, 287);
+      doc.text(`Halaman ${page} dari ${totalPages}`, right, 287, { align: "right" });
     }
     return doc;
   }
@@ -76,5 +142,5 @@ export function RecapActions({ rows, filters, printedBy }: { rows: RecapRow[]; f
     if (!doc) return;
     setBusy(true); doc.autoPrint(); window.open(doc.output("bloburl"), "_blank", "noopener,noreferrer"); setBusy(false);
   }
-  return <div className="flex flex-wrap gap-2"><button disabled={busy || rows.length === 0} onClick={print} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50"><Printer size={17} />Cetak</button><button disabled={busy || rows.length === 0} onClick={download} className="inline-flex items-center gap-2 rounded-xl bg-navy px-4 py-2.5 text-sm font-semibold text-white hover:bg-navy-soft disabled:opacity-50"><Download size={17} />Download PDF</button></div>;
+  return <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto"><button disabled={busy || rows.length === 0} onClick={print} className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 active:scale-[0.99] disabled:opacity-50 sm:w-auto sm:px-4"><Printer size={17} />Cetak</button><button disabled={busy || rows.length === 0} onClick={download} className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-navy px-2.5 text-sm font-semibold text-white transition hover:bg-navy-soft active:scale-[0.99] disabled:opacity-50 sm:w-auto sm:px-4"><Download size={17} />Download PDF</button></div>;
 }
