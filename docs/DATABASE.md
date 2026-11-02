@@ -11,7 +11,7 @@ pelanggaran.student_photo_url ─── path objek pada Storage privat student-p
 
 ## Tabel
 
-- **profiles** menyimpan identitas internal dan role `admin`/`ustaz`. Username unik tanpa membedakan kapital melalui index `lower(username)`. `deleted_at` mempertahankan profil akun yang telah dihapus lunak.
+- **profiles** menyimpan identitas internal dan role akses `admin`/`ustaz`. Untuk akun pelapor, kolom `educator_type` membedakan sapaan **Ustadz** dan **Ustadzah** tanpa mengubah izin akses. Username unik tanpa membedakan kapital melalui index `lower(username)`. `deleted_at` mempertahankan profil akun yang telah dihapus lunak.
 - **pelanggaran** menyimpan detail kejadian. Trigger mengisi `student_name_normalized` dengan huruf kecil, trim, dan satu spasi antar kata. `reporter_id` memakai `ON DELETE RESTRICT` agar riwayat pelapor tetap utuh.
 - **audit_logs** mencatat aktor, aksi, objek, waktu, dan metadata non-sensitif. Trigger mencatat insert/update/delete laporan; Server Actions mencatat pengelolaan akun dan login admin.
 
@@ -32,3 +32,4 @@ pelanggaran.student_photo_url ─── path objek pada Storage privat student-p
 1. `001_init.sql`: extension, tabel, index, normalisasi, dan trigger `updated_at`.
 2. `002_rls.sql`: fungsi keamanan, trigger reporter/audit, RLS, bucket dan policy Storage.
 3. `003_dashboard.sql`: RPC dashboard, manajemen akun, filter rekap, serta ringkasan riwayat.
+4. `004_educator_type.sql`: pilihan Ustadz/Ustadzah; akun pelapor lama ditetapkan sebagai Ustadz.

@@ -37,7 +37,7 @@ export function RecapActions({ rows, filters, printedBy }: { rows: RecapRow[]; f
     doc.text(`Periode laporan: ${period}`, 14, 51);
     autoTable(doc, {
       startY: 56,
-      head: [["No", "Tanggal kejadian", "Jenis pelanggaran", "Deskripsi", "Ustaz pelapor"]],
+      head: [["No", "Tanggal kejadian", "Jenis pelanggaran", "Deskripsi", "Ustadz/Ustadzah pelapor"]],
       body: rows.map((row, index) => [String(index + 1), formatDate(row.incident_date), categoryLabel(row.category), row.description, row.reporter?.full_name ?? "—"]),
       theme: "grid", margin: { left: 14, right: 14, bottom: 22 },
       styles: { font: "helvetica", fontSize: 8, cellPadding: 2.5, overflow: "linebreak", valign: "top", lineColor: [220, 229, 239], textColor: [38, 52, 70] },

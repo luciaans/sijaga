@@ -21,7 +21,7 @@ export default function LoginPage() {
         <h2 className="mb-2 text-3xl font-bold text-navy">Masuk ke SIJAGA</h2>
         <p className="mb-8 text-sm leading-6 text-slate-500">Masuk dengan username dan kata sandi yang diberikan pengelola.</p>
         <LoginForm />
-        <p className="mt-8 text-center text-xs leading-5 text-slate-400">Akses hanya untuk admin dan ustaz Pondok Pesantren Al-Jihad.</p>
+        <p className="mt-8 text-center text-xs leading-5 text-slate-400">Akses hanya untuk admin dan Ustadz/Ustadzah Pondok Pesantren Al-Jihad.</p>
       </div>
     </section>
   </main>;

@@ -14,8 +14,10 @@ describe("validasi login", () => {
 });
 
 describe("validasi akun ustaz", () => {
-  const base = { fullName: "Ustaz Ahmad", username: "ahmad_ustaz", password: "kata-sandi-kuat", confirmPassword: "kata-sandi-kuat" };
+  const base = { fullName: "Ustadz Ahmad", username: "ahmad_ustaz", educatorType: "ustadz" as const, password: "kata-sandi-kuat", confirmPassword: "kata-sandi-kuat" };
   it("menerima data akun yang sah", () => expect(createUstazSchema.safeParse(base).success).toBe(true));
+  it("menerima jenis akun Ustadzah", () => expect(createUstazSchema.safeParse({ ...base, educatorType: "ustadzah" }).success).toBe(true));
+  it("menolak jenis akun yang tidak dikenal", () => expect(createUstazSchema.safeParse({ ...base, educatorType: "admin" }).success).toBe(false));
   it("menolak kata sandi konfirmasi yang berbeda", () => expect(createUstazSchema.safeParse({ ...base, confirmPassword: "berbeda" }).success).toBe(false));
 });
 
