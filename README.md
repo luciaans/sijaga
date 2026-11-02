@@ -5,7 +5,7 @@ Sistem Informasi Jejak dan Administrasi Pelanggaran Santri. Aplikasi Next.js den
 ## Menjalankan aplikasi
 
 1. Salin `.env.example` menjadi `.env.local` dan isi kredensial Supabase.
-2. Jalankan migrasi SQL dalam urutan `supabase/migrations/` di SQL Editor Supabase.
+2. Jalankan `supabase/setup.sql` sekali di SQL Editor Supabase. Alternatifnya, jalankan isi folder `supabase/migrations/` berurutan; jangan jalankan keduanya.
 3. Buat admin awal dengan `npm run create-admin`.
 4. Jalankan `npm run dev`, lalu buka `http://localhost:3000`.
 
