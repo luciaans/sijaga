@@ -1,0 +1,14 @@
+import { format, parseISO } from "date-fns";
+import { id } from "date-fns/locale";
+import { requireRole } from "@/lib/auth/profile";
+import { createClient } from "@/lib/supabase/server";
+
+const labels: Record<string, string> = { create: "Membuat", update: "Mengubah", delete: "Menghapus", activate: "Mengaktifkan", deactivate: "Menonaktifkan", login: "Masuk" };
+export default async function AuditLogPage() {
+  await requireRole(["admin"]);
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("audit_logs").select("id,action,target_type,target_id,metadata,created_at,user:profiles!audit_logs_user_id_fkey(full_name,username)").order("created_at", { ascending: false }).range(0, 99);
+  if (error) return <div role="alert" className="rounded-2xl border border-red-200 bg-red-50 p-6 text-sm text-red-800">Log aktivitas gagal dimuat. Pastikan migrasi basis data sudah dijalankan.</div>;
+  const logs = (data ?? []) as unknown as { id: string; action: string; target_type: string; target_id: string | null; metadata: Record<string, unknown> | null; created_at: string; user: { full_name: string; username: string } | null }[];
+  return <div className="space-y-5"><div><h2 className="text-2xl font-bold text-navy">Audit aktivitas</h2><p className="mt-1 text-sm text-slate-500">100 aktivitas sistem terakhir untuk kebutuhan akuntabilitas.</p></div><section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">{logs.length === 0 ? <div className="p-12 text-center text-sm text-slate-500">Belum ada aktivitas yang tercatat.</div> : <div className="overflow-x-auto"><table className="w-full min-w-[760px] text-left text-sm"><thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500"><tr><th className="px-5 py-3">Waktu</th><th className="px-5 py-3">Pengguna</th><th className="px-5 py-3">Aktivitas</th><th className="px-5 py-3">Objek</th><th className="px-5 py-3">Informasi</th></tr></thead><tbody className="divide-y divide-slate-100">{logs.map((log) => <tr key={log.id}><td className="whitespace-nowrap px-5 py-4 text-slate-600">{format(parseISO(log.created_at), "d MMM yyyy, HH:mm", { locale: id })}</td><td className="px-5 py-4"><strong className="block text-slate-800">{log.user?.full_name ?? "Pengguna tidak aktif"}</strong><small className="text-slate-500">{log.user ? `@${log.user.username}` : "—"}</small></td><td className="px-5 py-4"><span className="rounded-full bg-accent-light px-2.5 py-1 text-xs font-semibold text-navy">{labels[log.action] ?? log.action}</span></td><td className="px-5 py-4 text-slate-600">{log.target_type}{log.target_id ? <small className="mt-1 block font-mono text-[10px] text-slate-400">{log.target_id}</small> : null}</td><td className="px-5 py-4 text-slate-600">{String(log.metadata?.username ?? "—")}</td></tr>)}</tbody></table></div>}</section></div>;
+}
