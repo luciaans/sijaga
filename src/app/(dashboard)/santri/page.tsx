@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, GraduationCap, Search } from "lucide-react";
 import { requireRole } from "@/lib/auth/profile";
@@ -5,6 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 
 type SearchParams = Promise<{ q?: string }>;
 type StudentSearchResult = { student_name: string; student_class: string; report_count: number };
+
+export const metadata: Metadata = { title: "Daftar Santri" };
 
 export default async function StudentsPage({ searchParams }: { searchParams: SearchParams }) {
   const profile = await requireRole();

@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { ChevronDown, ChevronLeft, ChevronRight, Search, SlidersHorizontal } from "lucide-react";
+import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/profile";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata: Metadata = { title: "Laporan Saya" };
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 type ReportRow = {

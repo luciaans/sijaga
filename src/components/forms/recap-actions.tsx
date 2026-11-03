@@ -108,17 +108,17 @@ export function RecapActions({ rows, filters, printedBy }: { rows: RecapRow[]; f
     doc.setFont("helvetica", "bold");
     doc.setFontSize(9);
     doc.setTextColor(50, 65, 82);
-    doc.text("Pengesahan", pageWidth / 2, signatureY, { align: "center" });
+    doc.text("Mengetahui", pageWidth / 2, signatureY, { align: "center" });
     doc.setDrawColor(120, 135, 150);
     doc.setLineWidth(0.35);
     doc.line(27, signatureY + 31, 83, signatureY + 31);
     doc.line(127, signatureY + 31, 183, signatureY + 31);
     doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
-    doc.text("Wali Kelas", 55, signatureY + 37, { align: "center" });
-    doc.text("Ketua Yayasan", 155, signatureY + 37, { align: "center" });
+    doc.text("Kepala MTs Ponpes Al-Jihad", 55, signatureY + 37, { align: "center" });
+    doc.text("Wali Kelas", 155, signatureY + 37, { align: "center" });
     doc.line(77, signatureY + 66, 133, signatureY + 66);
-    doc.text("Pengasuh Pondok", 105, signatureY + 72, { align: "center" });
+    doc.text("Pengasuh Ponpes Al-Jihad", 105, signatureY + 72, { align: "center" });
 
     const totalPages = doc.getNumberOfPages();
     for (let page = 1; page <= totalPages; page += 1) {

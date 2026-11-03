@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, ClipboardList, ShieldCheck, Users, AlertTriangle } from "lucide-react";
 import { format, parseISO } from "date-fns";
@@ -6,6 +7,8 @@ import { requireRole } from "@/lib/auth/profile";
 import { createClient } from "@/lib/supabase/server";
 import { CategoryChart, MonthlyChart, ReporterChart } from "@/components/charts/dashboard-charts";
 import type { Violation } from "@/types/database";
+
+export const metadata: Metadata = { title: "Dashboard" };
 
 type Stats = { total_reports: number; own_reports: number; unique_students: number; active_ustaz: number; categories: Record<string, number>; monthly: { month: string; total: number }[]; by_reporter: { name: string; total: number }[] };
 const number = (value: unknown) => Number(value ?? 0).toLocaleString("id-ID");

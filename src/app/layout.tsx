@@ -3,7 +3,10 @@ import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SIJAGA — Pondok Pesantren Al-Jihad",
+  title: {
+    default: "SIJAGA | Sistem Kedisiplinan Santri",
+    template: "SIJAGA | %s",
+  },
   description: "Sistem Informasi Jejak dan Administrasi Pelanggaran Santri",
 };
 

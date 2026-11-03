@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronDown, Plus, Search, SlidersHorizontal } from "lucide-react";
 import { requireRole } from "@/lib/auth/profile";
@@ -5,6 +6,8 @@ import { createClient } from "@/lib/supabase/server";
 import { ViolationTable } from "@/components/tables/violation-table";
 import { createSignedPhotoUrl } from "@/lib/supabase/photos";
 import { USTAZ_CAN_DELETE_OWN_REPORT } from "@/lib/constants";
+
+export const metadata: Metadata = { title: "Daftar Pelanggaran" };
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 const one = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;

@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import { format, parseISO } from "date-fns";
 import { id } from "date-fns/locale";
 import { requireRole } from "@/lib/auth/profile";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata: Metadata = { title: "Log Aktivitas" };
 
 const labels: Record<string, string> = { create: "Membuat", update: "Mengubah", delete: "Menghapus", activate: "Mengaktifkan", deactivate: "Menonaktifkan", login: "Masuk" };
 export default async function AuditLogPage() {

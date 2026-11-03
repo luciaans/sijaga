@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -10,6 +11,7 @@ import type { Violation } from "@/types/database";
 type Params = Promise<{ nama: string }>;
 type Search = Promise<{ page?: string }>;
 type HistoryRow = Violation & { reporter: { full_name: string } | null; photo_url: string | null };
+export const metadata: Metadata = { title: "Riwayat Santri" };
 export default async function StudentHistoryPage({ params, searchParams }: { params: Params; searchParams: Search }) {
   const profile = await requireRole();
   const [{ nama }, search] = await Promise.all([params, searchParams]);

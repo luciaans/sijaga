@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/profile";
 import { createClient } from "@/lib/supabase/server";
 import { UstazManager } from "@/components/forms/ustaz-manager";
+
+export const metadata: Metadata = { title: "Manajemen Akun" };
 
 export default async function UstazPage() {
   await requireRole(["admin"]);

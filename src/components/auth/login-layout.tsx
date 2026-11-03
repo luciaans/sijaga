@@ -18,9 +18,9 @@ export function LoginLayout({ role }: { role?: UserRole }) {
       <div aria-hidden="true" className="absolute -right-20 -top-12 h-[22rem] w-[22rem] rounded-full border border-white/10" />
       <Logo light />
       <div className="relative z-10 max-w-xl py-8">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-blue-200">Pondok Pesantren Al-Jihad</p>
-        <h1 className="mb-5 max-w-lg text-4xl font-bold leading-tight tracking-tight xl:text-5xl">Menjaga kedisiplinan,<br className="hidden xl:block" /> membimbing masa depan.</h1>
-        <p className="max-w-lg text-base leading-7 text-blue-100/85">SIJAGA membantu pencatatan kedisiplinan santri secara tertib, terukur, dan bertanggung jawab.</p>
+        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-blue-200">Pondok Pesantren Al-Jihad Kapuas Hulu</p>
+        <h1 className="mb-5 max-w-2xl text-4xl font-bold leading-tight tracking-tight xl:text-5xl">Disiplin Terjaga,<br className="hidden xl:block" /> Pembinaan Lebih Terarah.</h1>
+        <p className="max-w-xl text-base leading-7 text-blue-100/85">Satu sistem untuk mencatat pelanggaran, memantau riwayat kedisiplinan, dan mengelola data santri secara lebih tertib dan terstruktur.</p>
       </div>
       <p className="relative z-10 border-t border-white/10 pt-5 text-xs text-blue-100/60">SIJAGA <span className="mx-1.5 text-blue-200/40">•</span> Sistem Informasi Kedisiplinan Santri</p>
     </section>
@@ -30,7 +30,7 @@ export function LoginLayout({ role }: { role?: UserRole }) {
         <div aria-hidden="true" className="absolute -right-20 -top-24 -z-10 h-64 w-64 rounded-full border-[28px] border-white/5" />
         <div aria-hidden="true" className="absolute bottom-4 right-12 -z-10 h-32 w-32 rounded-full bg-sky-300/10 blur-2xl" />
         <Logo light />
-        <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-200 sm:mt-9 sm:text-xs sm:tracking-[0.18em]">Pondok Pesantren Al-Jihad</p>
+        <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-200 sm:mt-9 sm:text-xs sm:tracking-[0.18em]">Pondok Pesantren Al-Jihad Kapuas Hulu</p>
         <h1 className="mt-2 text-[1.4rem] font-bold tracking-tight sm:text-2xl">{selectedAccount ? `Login ${selectedAccount.label}` : "Selamat datang di SIJAGA"}</h1>
         <p className="mt-2 max-w-sm text-sm leading-6 text-blue-100/85">{selectedAccount ? "Masuk untuk melanjutkan ke sistem kedisiplinan santri." : "Pilih jenis akun untuk melanjutkan."}</p>
       </div>

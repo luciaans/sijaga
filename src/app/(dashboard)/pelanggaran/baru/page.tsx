@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { requireRole } from "@/lib/auth/profile";
 import { createClient } from "@/lib/supabase/server";
 import { ViolationForm } from "@/components/forms/violation-form";
+
+export const metadata: Metadata = { title: "Catat Pelanggaran" };
 
 export default async function NewViolationPage({ searchParams }: { searchParams: Promise<{ student?: string }> }) {
   const profile = await requireRole();

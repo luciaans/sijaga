@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
@@ -6,6 +7,8 @@ import { createClient } from "@/lib/supabase/server";
 import { ViolationForm } from "@/components/forms/violation-form";
 import type { Violation } from "@/types/database";
 import { createSignedPhotoUrl } from "@/lib/supabase/photos";
+
+export const metadata: Metadata = { title: "Edit Pelanggaran" };
 
 export default async function EditViolationPage({ params }: { params: Promise<{ id: string }> }) {
   const profile = await requireRole();

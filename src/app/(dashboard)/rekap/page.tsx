@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import { ChevronDown, FileText, SlidersHorizontal } from "lucide-react";
 import { requireRole } from "@/lib/auth/profile";
 import { createClient } from "@/lib/supabase/server";
 import { RecapActions } from "@/components/forms/recap-actions";
 import type { Violation } from "@/types/database";
+
+export const metadata: Metadata = { title: "Rekap & Cetak" };
 
 type Params = Promise<Record<string, string | string[] | undefined>>;
 const one = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;

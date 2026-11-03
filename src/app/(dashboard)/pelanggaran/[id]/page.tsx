@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -12,6 +13,7 @@ import type { Violation } from "@/types/database";
 import { USTAZ_CAN_DELETE_OWN_REPORT } from "@/lib/constants";
 
 type Detail = Violation & { reporter: { full_name: string; username: string } | null };
+export const metadata: Metadata = { title: "Detail Pelanggaran" };
 const stamp = (value: string) => format(parseISO(value), "d MMMM yyyy, HH:mm", { locale: id });
 
 export default async function ViolationDetailPage({ params }: { params: Promise<{ id: string }> }) {
