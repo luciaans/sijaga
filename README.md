@@ -99,3 +99,7 @@ docs/                    Panduan instalasi dan dokumentasi teknis
 - [Panduan akun admin](docs/AKUN_ADMIN.md)
 - [Asumsi aplikasi](docs/ASSUMPTIONS.md)
 - [Checklist pengujian](docs/PENGUJIAN.md)
+
+## Kredit
+
+Dibuat oleh [Luciaans](https://github.com/luciaans) untuk Pondok Pesantren Al-Jihad.
