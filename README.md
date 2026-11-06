@@ -1,105 +1,106 @@
-<div align="center">
+<p align="center">
+  <img src="public/al-jihad-emblem.png" alt="Lambang Pondok Pesantren Al-Jihad" width="72" height="72" />
+</p>
 
-<img src="public/al-jihad-emblem.png" alt="Lambang Pondok Pesantren Al-Jihad" width="112" />
+<h1 align="center">SIJAGA</h1>
 
-# SIJAGA
+<p align="center"><strong>Sistem Informasi Jejak dan Administrasi Pelanggaran Santri</strong></p>
+<p align="center">Cara yang teratur untuk mencatat dan meninjau kedisiplinan santri di Pondok Pesantren Al-Jihad.</p>
 
-### Sistem Informasi Jejak dan Administrasi Pelanggaran Santri
+<p align="center">
+  <img alt="Next.js" src="https://img.shields.io/badge/Next.js-App_Router-111111?logo=nextdotjs&logoColor=white" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript&logoColor=white" />
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-UI-06B6D4?logo=tailwindcss&logoColor=white" />
+  <img alt="Supabase" src="https://img.shields.io/badge/Supabase-Database_and_Auth-3FCF8E?logo=supabase&logoColor=white" />
+</p>
 
-Membantu Pondok Pesantren Al-Jihad mencatat, memantau, dan menindaklanjuti kedisiplinan santri dengan lebih teratur.
+SIJAGA adalah aplikasi web untuk Pondok Pesantren Al-Jihad. Aplikasi ini menyatukan pencatatan pelanggaran, data santri, dan laporan kedisiplinan. Antarmuka aplikasi menggunakan bahasa Indonesia.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19-149eca?logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06b6d4?logo=tailwindcss)](https://tailwindcss.com/)
-[![Supabase](https://img.shields.io/badge/Supabase-Auth_%26_Postgres-3fcf8e?logo=supabase)](https://supabase.com/)
+## Fitur
 
-</div>
+- **Dashboard** — Meninjau jumlah laporan, santri terdata, kategori pelanggaran, tren bulanan, dan aktivitas terbaru.
+- **Pencatatan pelanggaran** — Mencatat kejadian berdasarkan santri, kelas, tanggal, kategori, deskripsi, dan foto pendukung.
+- **Data dan riwayat santri** — Mencari santri dan melihat ringkasan serta riwayat laporan per santri.
+- **Filter laporan** — Menyaring laporan berdasarkan nama santri, kategori, kelas, pelapor, dan rentang tanggal.
+- **Laporan dan rekap** — Meninjau laporan dan mengunduh rekap dalam format PDF.
+- **Manajemen akun** — Mengelola akun ustaz/ustazah dan meninjau aktivitas administrator.
+- **Foto privat** — Menyimpan foto di Supabase Storage privat dan menyajikannya menggunakan tautan bertanda tangan.
+- **Keamanan data** — Menggunakan autentikasi, hak akses berbasis peran, dan Row Level Security (RLS).
 
-SIJAGA menyediakan pencatatan laporan pelanggaran, riwayat kedisiplinan per santri, dan ringkasan aktivitas dalam satu aplikasi berbahasa Indonesia. Akses dibedakan untuk administrator dan ustaz/ustazah, dengan data yang dilindungi melalui autentikasi serta Row Level Security (RLS) di Supabase.
+## Peran pengguna
 
-## Fitur utama
-
-| Fitur | Kegunaan |
-| --- | --- |
-| Dashboard | Memantau jumlah laporan, santri terdata, kategori pelanggaran, tren bulanan, dan aktivitas terbaru. |
-| Data santri | Mencari santri dan melihat profil serta riwayat laporan kedisiplinannya. |
-| Pencatatan pelanggaran | Membuat, melihat, dan mengelola laporan berdasarkan santri, kelas, tanggal, kategori, deskripsi, dan foto pendukung. |
-| Filter dan pencarian | Menyaring laporan berdasarkan nama santri, kategori, kelas, pelapor, dan rentang tanggal. |
-| Laporan dan rekap | Meninjau laporan, melihat ringkasan, serta mengunduh laporan PDF. |
-| Manajemen akun | Administrator mengelola akun ustaz/ustazah dan melihat log aktivitas admin. |
-| Akses berbasis peran | Administrator mengelola data sistem; ustaz/ustazah mencatat dan mengakses laporan sesuai hak aksesnya. |
-| Penyimpanan foto privat | Foto santri disimpan di bucket privat Supabase Storage dan disajikan dengan tautan bertanda tangan. |
+- **Administrator** — Mengelola akun ustaz/ustazah, meninjau laporan, melihat data santri, dan mengakses log aktivitas.
+- **Ustaz/ustazah** — Mencatat laporan dan melihat aktivitas pelaporan sesuai hak akses akun.
 
 ## Teknologi
 
-- [Next.js 16](https://nextjs.org/) dengan App Router dan Server Actions
-- [React 19](https://react.dev/) dan [TypeScript 6](https://www.typescriptlang.org/)
-- [Tailwind CSS 4](https://tailwindcss.com/)
-- [Supabase](https://supabase.com/) Auth, PostgreSQL, Row Level Security, dan Storage
-- Recharts untuk grafik, jsPDF untuk laporan PDF, dan Zod untuk validasi
+Next.js App Router, React, TypeScript, Tailwind CSS, Supabase, Recharts, jsPDF, dan Zod.
 
-## Menjalankan secara lokal
+## Memulai
 
-### Persiapan Supabase
+### Persyaratan
 
-1. Buat project Supabase dan siapkan Project URL, Publishable key (atau legacy anon key), serta Secret key (atau legacy service role key).
-2. Jalankan `supabase/setup.sql` satu kali di SQL Editor Supabase. Sebagai alternatif, jalankan migrasi dalam `supabase/migrations/` secara berurutan. Jangan jalankan kedua cara sekaligus.
-3. Salin `.env.example` menjadi `.env.local`, lalu isi nilai berikut:
+- Node.js dan npm
+- Project Supabase
 
-   ```dotenv
-   NEXT_PUBLIC_SUPABASE_URL=https://PROJECT_REF.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
-   SUPABASE_SERVICE_ROLE_KEY=...
-   ADMIN_USERNAME=admin_pondok
-   ADMIN_PASSWORD=kata-sandi-kuat
-   ADMIN_FULL_NAME=Administrator SIJAGA
-   ```
-
-   `SUPABASE_SERVICE_ROLE_KEY` hanya digunakan di sisi server. Jangan membagikan key ini atau memasukkannya ke dalam kode sisi klien.
-
-### Instalasi dan jalankan
+### Instal dependensi
 
 ```bash
+git clone https://github.com/luciaans/sijaga.git
+cd sijaga
 npm install
-npm run create-admin
+```
+
+Buat file environment lokal dengan menyalin `.env.example` menjadi `.env.local`, kemudian isi nilainya:
+
+| Variabel | Wajib | Keterangan |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Ya | URL project Supabase. |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Ya | Publishable key Supabase (`sb_publishable_...`) atau legacy anon key. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Ya | Secret key Supabase untuk proses server. Simpan rahasia dan jangan pernah mengeksposnya di kode klien. |
+| `ADMIN_USERNAME` | Ya, untuk membuat admin | Username administrator pertama; 4–30 karakter huruf kecil, angka, atau garis bawah. |
+| `ADMIN_PASSWORD` | Ya, untuk membuat admin | Kata sandi administrator pertama; minimal 8 karakter. |
+| `ADMIN_FULL_NAME` | Ya, untuk membuat admin | Nama lengkap administrator pertama. |
+| `TEST_USTAZ_A_USERNAME` dan `TEST_USTAZ_A_PASSWORD` | Opsional | Kredensial akun uji untuk `npm run test:rls`. |
+| `TEST_USTAZ_B_USERNAME` dan `TEST_USTAZ_B_PASSWORD` | Opsional | Kredensial akun uji kedua untuk `npm run test:rls`. |
+
+Jangan commit `.env.local` atau membagikan service role key.
+
+### Siapkan Supabase
+
+1. Buat project Supabase dan masukkan URL serta key ke `.env.local`.
+2. Untuk project baru yang masih kosong, jalankan [`supabase/setup.sql`](supabase/setup.sql) satu kali di SQL Editor Supabase. Alternatifnya, jalankan file di [`supabase/migrations/`](supabase/migrations/) sesuai urutan. Jangan jalankan kedua cara sekaligus atau menjalankan ulang seluruh setup pada project yang sudah aktif.
+3. Pastikan penyedia Email aktif di Supabase Authentication.
+4. Buat akun administrator pertama:
+
+   ```bash
+   npm run create-admin
+   ```
+
+### Jalankan aplikasi
+
+```bash
 npm run dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000). Username admin harus terdiri dari 4–30 karakter huruf kecil, angka, atau garis bawah; kata sandi minimal 8 karakter.
+Buka [http://localhost:3000](http://localhost:3000).
 
-## Perintah yang tersedia
+## Skrip yang berguna
 
-| Perintah | Kegunaan |
+| Perintah | Keterangan |
 | --- | --- |
 | `npm run dev` | Menjalankan server pengembangan. |
 | `npm run lint` | Memeriksa kode dengan ESLint. |
 | `npx tsc --noEmit` | Memeriksa tipe TypeScript. |
-| `npm test` | Menjalankan pengujian otomatis skema validasi. |
-| `npm run test:rls` | Menguji kebijakan RLS dengan dua akun uji ustaz. |
+| `npm test` | Menjalankan pengujian skema validasi. |
+| `npm run test:rls` | Menguji RLS menggunakan dua akun uji ustaz. |
 | `npm run build` | Membuat build produksi. |
-| `npm start` | Menjalankan build produksi. |
+| `npm start` | Menjalankan build produksi secara lokal. |
 
-## Struktur proyek
+Untuk panduan konfigurasi lebih lanjut, lihat [dokumentasi instalasi](docs/INSTALASI.md). Jangan pernah menyimpan `.env.local` ke Git atau membagikan service role key.
 
-```text
-src/app/                 Halaman dan route aplikasi
-src/actions/             Server Actions
-src/components/          Komponen antarmuka, formulir, tabel, dan grafik
-src/lib/                 Supabase, autentikasi, dan validasi
-supabase/migrations/     Skema basis data, RLS, Storage, trigger, dan fungsi
-scripts/                 Skrip pembuatan admin dan uji RLS
-docs/                    Panduan instalasi dan dokumentasi teknis
-```
+---
 
-## Dokumentasi
+Dibuat oleh [luciaans](https://github.com/luciaans).
 
-- [Panduan instalasi lengkap](docs/INSTALASI.md)
-- [Dokumentasi basis data](docs/DATABASE.md)
-- [Panduan akun admin](docs/AKUN_ADMIN.md)
-- [Asumsi aplikasi](docs/ASSUMPTIONS.md)
-- [Checklist pengujian](docs/PENGUJIAN.md)
-
-## Kredit
-
-Dibuat oleh [Luciaans](https://github.com/luciaans) untuk Pondok Pesantren Al-Jihad.
+Copyright © 2026 luciaans. All rights reserved.
