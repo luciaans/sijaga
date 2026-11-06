@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="public/al-jihad-emblem.png" alt="Lambang Pondok Pesantren Al-Jihad" width="72" height="72" />
+  <img src="public/al-jihad-emblem.png" alt="Al-Jihad Islamic Boarding School emblem" width="72" height="72" />
 </p>
 
 <h1 align="center">SIJAGA</h1>
 
-<p align="center"><strong>Sistem Informasi Jejak dan Administrasi Pelanggaran Santri</strong></p>
-<p align="center">Cara yang teratur untuk mencatat dan meninjau kedisiplinan santri di Pondok Pesantren Al-Jihad.</p>
+<p align="center"><strong>Student Discipline and Incident Reporting System</strong></p>
+<p align="center">A clear, consistent way for Pondok Pesantren Al-Jihad to record and review student discipline.</p>
 
 <p align="center">
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-App_Router-111111?logo=nextdotjs&logoColor=white" />
@@ -14,36 +14,36 @@
   <img alt="Supabase" src="https://img.shields.io/badge/Supabase-Database_and_Auth-3FCF8E?logo=supabase&logoColor=white" />
 </p>
 
-SIJAGA adalah aplikasi web untuk Pondok Pesantren Al-Jihad. Aplikasi ini menyatukan pencatatan pelanggaran, data santri, dan laporan kedisiplinan. Antarmuka aplikasi menggunakan bahasa Indonesia.
+SIJAGA is a web application for Pondok Pesantren Al-Jihad. It brings incident reporting, student records, and discipline reports together in one place. The application interface is in Indonesian.
 
-## Fitur
+## Features
 
-- **Dashboard** — Meninjau jumlah laporan, santri terdata, kategori pelanggaran, tren bulanan, dan aktivitas terbaru.
-- **Pencatatan pelanggaran** — Mencatat kejadian berdasarkan santri, kelas, tanggal, kategori, deskripsi, dan foto pendukung.
-- **Data dan riwayat santri** — Mencari santri dan melihat ringkasan serta riwayat laporan per santri.
-- **Filter laporan** — Menyaring laporan berdasarkan nama santri, kategori, kelas, pelapor, dan rentang tanggal.
-- **Laporan dan rekap** — Meninjau laporan dan mengunduh rekap dalam format PDF.
-- **Manajemen akun** — Mengelola akun ustaz/ustazah dan meninjau aktivitas administrator.
-- **Foto privat** — Menyimpan foto di Supabase Storage privat dan menyajikannya menggunakan tautan bertanda tangan.
-- **Keamanan data** — Menggunakan autentikasi, hak akses berbasis peran, dan Row Level Security (RLS).
+- **Dashboard** — Review report totals, recorded students, incident categories, monthly trends, and recent activity.
+- **Incident reporting** — Record incidents with the student's name, class, date, category, description, and supporting photos.
+- **Student records and history** — Search for students and review their summaries and incident history.
+- **Report filters** — Filter reports by student name, category, class, reporter, and date range.
+- **Reports and summaries** — Review reports and download PDF summaries.
+- **Account management** — Manage ustaz/ustazah accounts and review administrator activity.
+- **Private photos** — Store photos in private Supabase Storage and serve them with signed URLs.
+- **Data security** — Use authentication, role-based access, and Supabase Row Level Security (RLS).
 
-## Peran pengguna
+## User roles
 
-- **Administrator** — Mengelola akun ustaz/ustazah, meninjau laporan, melihat data santri, dan mengakses log aktivitas.
-- **Ustaz/ustazah** — Mencatat laporan dan melihat aktivitas pelaporan sesuai hak akses akun.
+- **Administrator** — Manages ustaz/ustazah accounts, reviews reports, views student records, and accesses the audit log.
+- **Ustaz/ustazah** — Records reports and views reporting activity according to their account permissions.
 
-## Teknologi
+## Technology
 
-Next.js App Router, React, TypeScript, Tailwind CSS, Supabase, Recharts, jsPDF, dan Zod.
+Next.js App Router, React, TypeScript, Tailwind CSS, Supabase, Recharts, jsPDF, and Zod.
 
-## Memulai
+## Getting started
 
-### Persyaratan
+### Requirements
 
-- Node.js dan npm
-- Project Supabase
+- Node.js and npm
+- A Supabase project
 
-### Instal dependensi
+### Install dependencies
 
 ```bash
 git clone https://github.com/luciaans/sijaga.git
@@ -51,56 +51,56 @@ cd sijaga
 npm install
 ```
 
-Buat file environment lokal dengan menyalin `.env.example` menjadi `.env.local`, kemudian isi nilainya:
+Create a local environment file by copying `.env.example` to `.env.local`, then set the values:
 
-| Variabel | Wajib | Keterangan |
+| Variable | Required | Description |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | Ya | URL project Supabase. |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Ya | Publishable key Supabase (`sb_publishable_...`) atau legacy anon key. |
-| `SUPABASE_SERVICE_ROLE_KEY` | Ya | Secret key Supabase untuk proses server. Simpan rahasia dan jangan pernah mengeksposnya di kode klien. |
-| `ADMIN_USERNAME` | Ya, untuk membuat admin | Username administrator pertama; 4–30 karakter huruf kecil, angka, atau garis bawah. |
-| `ADMIN_PASSWORD` | Ya, untuk membuat admin | Kata sandi administrator pertama; minimal 8 karakter. |
-| `ADMIN_FULL_NAME` | Ya, untuk membuat admin | Nama lengkap administrator pertama. |
-| `TEST_USTAZ_A_USERNAME` dan `TEST_USTAZ_A_PASSWORD` | Opsional | Kredensial akun uji untuk `npm run test:rls`. |
-| `TEST_USTAZ_B_USERNAME` dan `TEST_USTAZ_B_PASSWORD` | Opsional | Kredensial akun uji kedua untuk `npm run test:rls`. |
+| `NEXT_PUBLIC_SUPABASE_URL` | Yes | Supabase project URL. |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes | Supabase publishable key (`sb_publishable_...`) or legacy anon key. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Supabase secret key for server-side operations. Keep it secret and never expose it in client code. |
+| `ADMIN_USERNAME` | Yes, to create the admin | Username for the first administrator; 4–30 lowercase letters, numbers, or underscores. |
+| `ADMIN_PASSWORD` | Yes, to create the admin | Password for the first administrator; at least 8 characters. |
+| `ADMIN_FULL_NAME` | Yes, to create the admin | Full name of the first administrator. |
+| `TEST_USTAZ_A_USERNAME` and `TEST_USTAZ_A_PASSWORD` | Optional | Test account credentials for `npm run test:rls`. |
+| `TEST_USTAZ_B_USERNAME` and `TEST_USTAZ_B_PASSWORD` | Optional | Credentials for the second test account used by `npm run test:rls`. |
 
-Jangan commit `.env.local` atau membagikan service role key.
+Never commit `.env.local` or share the service role key.
 
-### Siapkan Supabase
+### Set up Supabase
 
-1. Buat project Supabase dan masukkan URL serta key ke `.env.local`.
-2. Untuk project baru yang masih kosong, jalankan [`supabase/setup.sql`](supabase/setup.sql) satu kali di SQL Editor Supabase. Alternatifnya, jalankan file di [`supabase/migrations/`](supabase/migrations/) sesuai urutan. Jangan jalankan kedua cara sekaligus atau menjalankan ulang seluruh setup pada project yang sudah aktif.
-3. Pastikan penyedia Email aktif di Supabase Authentication.
-4. Buat akun administrator pertama:
+1. Create a Supabase project and add its URL and keys to `.env.local`.
+2. For a new, empty project, run [`supabase/setup.sql`](supabase/setup.sql) once in the Supabase SQL Editor. Alternatively, run the files in [`supabase/migrations/`](supabase/migrations/) in order. Do not use both methods or rerun the full setup on an active project.
+3. Make sure the Email provider is enabled in Supabase Authentication.
+4. Create the first administrator account:
 
    ```bash
    npm run create-admin
    ```
 
-### Jalankan aplikasi
+### Run the application
 
 ```bash
 npm run dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000).
 
-## Skrip yang berguna
+## Useful scripts
 
-| Perintah | Keterangan |
+| Command | Description |
 | --- | --- |
-| `npm run dev` | Menjalankan server pengembangan. |
-| `npm run lint` | Memeriksa kode dengan ESLint. |
-| `npx tsc --noEmit` | Memeriksa tipe TypeScript. |
-| `npm test` | Menjalankan pengujian skema validasi. |
-| `npm run test:rls` | Menguji RLS menggunakan dua akun uji ustaz. |
-| `npm run build` | Membuat build produksi. |
-| `npm start` | Menjalankan build produksi secara lokal. |
+| `npm run dev` | Start the development server. |
+| `npm run lint` | Check the code with ESLint. |
+| `npx tsc --noEmit` | Check TypeScript types. |
+| `npm test` | Run validation schema tests. |
+| `npm run test:rls` | Test RLS using two ustaz test accounts. |
+| `npm run build` | Create a production build. |
+| `npm start` | Run the production build locally. |
 
-Untuk panduan konfigurasi lebih lanjut, lihat [dokumentasi instalasi](docs/INSTALASI.md). Jangan pernah menyimpan `.env.local` ke Git atau membagikan service role key.
+For more setup details, see the [installation guide](docs/INSTALASI.md). Never commit `.env.local` or share the service role key.
 
 ---
 
-Dibuat oleh [luciaans](https://github.com/luciaans).
+Created by [luciaans](https://github.com/luciaans).
 
 Copyright © 2026 luciaans. All rights reserved.
